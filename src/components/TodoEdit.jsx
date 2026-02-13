@@ -1,20 +1,24 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import './TodoEdit.css'
+import { useTodoStore } from '../contexts/todoContext'
 
-const TodoEdit = ({onCreate}) => {
+const TodoEdit = () => {
+  const {createTodo}=useTodoStore()
   const [content, setContent] = useState("")
-  const inputRef = useRef(3)
+  const inputRef = useRef(null)
+
+  useEffect(()=>{
+    inputRef.current.focus()
+  },[])
 
   const onChangeContent =(e)=> {
     setContent(e.target.value)
   }
 
   const onSubmit=()=> {
-    if(content=='') {
-      inputRef.current.focus()
-      return
-    }
-    onCreate(content)
+    
+    createTodo(content)
+    inputRef.current?.focus()
     setContent("")
   }
 
