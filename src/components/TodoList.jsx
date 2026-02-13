@@ -1,26 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState,useMemo} from 'react'
+import { useTodoStore } from '../contexts/todoContext'
 import TodoItem from './TodoItem'
 import './TodoList.css'
 
-const TodoList = ({todos, onUpdate, onDelete}) => {
+const TodoList = () => {
+  const {todos} = useTodoStore()
   const [search, setSearch] =useState("")
+
+  const filteredTodos = useMemo(()=> {
+    if(!search.trim()) return todos
+    const q =search.toLowerCase()
+
+    return todos.filter((t)=> t.content.toLowerCase
+    .includes(q))
+
+
+  },[todos, search])
 
   const onChangeSearch=(e)=>{
     setSearch(e.target.value)
   }
 
-  const getfilterdData=()=>{
-    if(search===''){
-      return todos
-    }
-    return todos.filter((todo)=> 
-      todo.content
-      .toLowerCase()
-      .includes(search.toLowerCase())
-    )
-  }
 
-  const filteredTodos = getfilterdData()
+  // const filteredTodos = getfilterdData()
 
   return (
     <div className='TodoList'>
@@ -32,7 +34,7 @@ const TodoList = ({todos, onUpdate, onDelete}) => {
         placeholder='검색어를 입력하세요'/>
         <div className="todos_wrapper">
             {filteredTodos.map((todo)=>(
-              <TodoItem key={todo.id} {...todo} onUpdate={onUpdate} onDelete={onDelete}/>
+              <TodoItem key={todo.id} {...todo} />
             ))}
         </div>
     </div>
