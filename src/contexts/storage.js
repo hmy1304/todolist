@@ -4,7 +4,7 @@ export function loadTodos(){
     try {
         const saved = JSON.parse(localStorage.getItem(LS_KEY)||"null")
         return Array.isArray(saved) ? saved : null
-    } catch (error){
+    } catch {
         return null
     }
 }
