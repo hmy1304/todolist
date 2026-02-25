@@ -1,20 +1,25 @@
 import { ACTIONS } from "./actions";
 
-export function createToggleActions(dispatch, idRef){
-    return{
-        createTodo:(content)=>{
-            const text = (content??"").trim()
-            if(!text) return
+export function createToggleActions(dispatch, idRef) {
 
-            const todo={
-                id:idRef.current++,
-                isDone:false,
-                content:text,
-                date:new Date().getTime()
+    return {
+
+        createTodo: (content) => {
+
+            const text = (content ?? "").trim()
+            if (!text) return
+
+            const todo = {
+                id: idRef.current++,
+                isDone: false,
+                content: text,
+                date: new Date().getTime()
             }
-            dispatch({type:ACTIONS.CREATE, todo})
+
+            dispatch({ type: ACTIONS.CREATE, todo })
         },
-        toggleTodo:(id)=>dispatch({type:ACTIONS.TOGGLE, id}),
-        deleteTodo:(id)=>dispatch({type:ACTIONS.DELETE, id})
+        toggleTodo: (id) => dispatch({ type: ACTIONS.TOGGLE, id }),
+        deleteTodo: (id) => dispatch({ type: ACTIONS.DELETE, id })
     }
+
 }

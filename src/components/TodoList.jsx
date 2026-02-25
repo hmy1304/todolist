@@ -7,15 +7,14 @@ const TodoList = () => {
   const {todos} = useTodoStore()
   const [search, setSearch] =useState("")
 
-  const filteredTodos = useMemo(()=> {
-    if(!search.trim()) return todos
-    const q =search.toLowerCase()
+  const filteredTodos = useMemo(() => {
+    if (!search.trim()) return todos
+    const q = search.toLowerCase()
 
-    return todos.filter((t)=> t.content.toLowerCase
-    .includes(q))
+    return todos.filter((t)=>t.content.toLowerCase().includes(q))
 
 
-  },[todos, search])
+  }, [todos,search])
 
   const onChangeSearch=(e)=>{
     setSearch(e.target.value)
@@ -33,7 +32,7 @@ const TodoList = () => {
         type="text" 
         placeholder='검색어를 입력하세요'/>
         <div className="todos_wrapper">
-            {filteredTodos.map((todo)=>(
+            {filteredTodos.map((todo) => (
               <TodoItem key={todo.id} {...todo} />
             ))}
         </div>
